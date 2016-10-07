@@ -15,8 +15,8 @@ ws.on('connection', function(client) {
         } else {
             client.nickname = msg;
             ws.sockets.emit('announcement', 'system', msg + ' joined');
+            client.broadcast.emit('send.message', 'system', msg + ' joined!');
         }
-        client.broadcast.emit('send.message', 'system', msg + ' connect!');
     });
     //listen send
     client.on('send.message', function(msg) {
