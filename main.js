@@ -8,7 +8,6 @@ app.get('/', function(req, res) {
     res.send('Hello World!');
 });
 ws.on('connection', function(client) {
-    client.broadcast.emit('send.message', 'system', client.nickname + ' connect!');
     client.on('join', function(msg) {
         //check overlap
         if (checkNickname(msg)) {
@@ -17,6 +16,7 @@ ws.on('connection', function(client) {
             client.nickname = msg;
             ws.sockets.emit('announcement', 'system', msg + ' joined');
         }
+        client.broadcast.emit('send.message', 'system', msg + ' connect!');
     });
     //listen send
     client.on('send.message', function(msg) {
