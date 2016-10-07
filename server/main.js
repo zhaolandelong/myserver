@@ -1,7 +1,7 @@
 var express = require('express'),
     io = require('socket.io'),
     app = express();
-app.use(express.static(__dirname));
+app.use(express.static(__dirname+'static'));
 var server = app.listen(8888),
     ws = io.listen(server);
 app.get('/', function(req, res) {
