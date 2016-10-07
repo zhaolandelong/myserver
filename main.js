@@ -8,7 +8,9 @@ app.get('/', function(req, res) {
     res.send('Hello World!');
 });
 ws.on('connection', function(client) {
-    console.log('someone is connect\n');
+    if (client.nickname) {
+        client.broadcast.emit('send.message', 'system', client.nickname + ' connect!');
+    }
     client.on('join', function(msg) {
         //check overlap
         if (checkNickname(msg)) {
