@@ -1,12 +1,14 @@
 var express = require('express'),
     io = require('socket.io'),
+    path = require('path'),
     app = express();
-app.use(express.static(__dirname+'static'));
+app.use(express.static(path.resolve(__dirname, '../static')));
 var server = app.listen(8888),
     ws = io.listen(server);
-app.get('/', function(req, res) {
+/*app.get('/', function(req, res) {
     res.send('Hello World!');
-});
+    // res.sendFile('/home/zldl/myserver/static/index.html');
+});*/
 ws.on('connection', function(client) {
     client.on('join', function(msg) {
         //check overlap
