@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+</head>
+
+<body>
+    <h1>Hello World! I am a html!</h1>
+    <h2>Your nick name is <span id="nickName" style="color: #f60"></span></h2>
+    <div>
+        <ul id="list" style="width: 300px;height: 200px;border: 1px solid #000;overflow-y: auto;">
+        </ul>
+        input:
+        <input type="text" id="inputTxt">
+        <button id="sendBtn">send</button>
+    </div>
+    <script src="/static/js/socket.io.js"></script>
+    <script>
+    var name = 'zldl' + Math.round(Math.random() * 1000000),
+        ws = io.connect(location.href),
+        // ws = io.connect('http://127.0.0.1:8888'),
+        list = document.getElementById('list'),
+        nickName = document.getElementById('nickName'),
+        inputTxt = document.getElementById('inputTxt'),
+        sendBtn = document.getElementById('sendBtn');
+    nickName.innerHTML = name;
+    var addMsg = function(name, msg) {
+            var li = document.createElement('li');
+            li.innerHTML = name + ':' + msg;
+            list.appendChild(li);
+        },
+        send = function() {
+            var msg = inputTxt.value;
+            if (!msg) {
+                return;
+            }
+            ws.emit('send.message', msg);
+            addMsg(name, msg);
+            inputTxt.value = '';
+        };
+    ws.on('connect', function() {
+        ws.emit('join', name);
+    });
+    ws.on('send.message', function(from, msg) {
+        console.log(from, msg);
+        addMsg(from, msg);
+    });
+    ws.on('announcement', function(from, msg) {
+        console.log(from, msg);
+    });
+    sendBtn.onclick = send;
+    inputTxt.onkeydown = function(e) {
+        if (e.keyCode == 13) {
+            send()
+        }
+    };
+    </script>
+</body>
+
+</html>

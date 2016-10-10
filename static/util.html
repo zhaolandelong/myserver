@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
+    <title>util-zldl 原生环境demo</title>
+    <style>
+    body {
+        word-break: break-all;
+    }
+    
+    pre {
+        background: #efefef;
+        border: 1px solid #ccc;
+        padding: 20px;
+        overflow-x: auto;
+    }
+    
+    .note {
+        color: #f60;
+        padding: 0 10px;
+        font-weight: bold;
+    }
+    
+    li {
+        margin: 10px 0;
+    }
+    
+    ul {
+        margin: 0;
+        padding: 0;
+        font-size: 0;
+    }
+    
+    ul>li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        width: 200px;
+        height: 100px;
+        display: inline-block;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 100px;
+        cursor: default;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>util-zldl 原生环境demo(适合移动端)</h1>
+    <ol>
+        <li>
+            Date.prototype.Format-给Date对象增加了一个方法，根据输入，输出各种格式的时间
+            <pre>var a = new Date(111111);<br><br>a.Format("yyyy-MM-dd hh:mm:ss.S") => <span id="ymdhms"></span><br><br>a.Format("yyyy-M-d h:m:s.S") => <span id="ymdhms2"></span><br><br></pre>
+        </li>
+        <li>
+            isAndroid-返回当前设备是否为android
+            <pre>util.isAndroid	//true-是	false-否</pre>
+        </li>
+        <li>
+            urlParam(param)-获取url中的变量(将此部分?test=IAmUrlTest添加到到当前url之后，回车)
+            <pre>util.urlParam('test') => IAmUrlTest</pre> 获取的
+            <span id="urlParamP" class="note"></span>变量的值为<span id="urlParamV" class="note"></span>
+        </li>
+        <li>
+            getCookie(name)-获取cookie中的变量值
+            <pre>util.getCookie('test') => cookie中test的值</pre>
+        </li>
+        <li>
+            ajax(option).headers(option).before(callback).get|post(url).always(callback).suc(callback).err(callback)-链式调用的ajax(默认为json格式，不是promise，多个回调异步执行)，详情见源代码
+            <pre>util.ajax().get(url).suc(function(res){ //成功回调1}).suc(function(res){ //成功回调2}).err(function(){ //失败回调});</pre>
+        </li>
+        <li>
+            add(a,b)-两数相加，防止精度丢失
+            <pre>0.1+0.2 => 0.30000000000000004;<br><br>util.add(0.1,0.2) => 0.3;</pre>
+        </li>
+        <li>
+            scrollIntoView(dom)-(移动端)传入的dom自动移动到可视区域，如果是IOS直接滚，如果是android，已唤出输入法就直接滚否则要监听onresize事件,注意IE不支持outerHeight
+        </li>
+        <li>
+            fullPath()-获取url全绝对路径，即最后一个/之前的所有
+            <pre>util.fullPath() => <span id="fullpath"></span></pre>
+        </li>
+        <li>
+            showLoading(txt,iconUrl)/hideLoading()-(移动端)在body最下面加一个loading动画，如无反应，30s后自动消失；点击按钮看效果
+            <pre>btn.onclick = util.showLoading.bind(null,'点完往下滑看效果！！！！','');</pre>
+            <button onclick="util.showLoading('点完往下滑看效果！！！！')">showLoading</button>
+            <button onclick="util.hideLoading()">hideLoading</button>
+        </li>
+        <li>
+            animateLeft(dom, left, speed, cb)-(适合移动端banner)js模拟左滑动动画（dom-主dom，left-终点坐标，speed-多久移动完单位ms，cb-移动完执行的回调，可省略），点击查看效果
+            <pre>var animateToLeft = true,
+    dom = document.getElementById('box');
+document.getElementById('animateleft').onclick = function() {
+    if (animateToLeft) {
+        util.animateLeft(dom, 0, 1000, function() {
+            animateToLeft = false;
+        })
+    } else {
+        util.animateLeft(dom, 500, 1000, function() {
+            animateToLeft = true;
+        })
+    }
+};</pre>
+            <button id="animateleft">move</button>
+            <div style="position:relative;width:100%;height: 50px;border:1px solid #000;">
+                <div id="box" style="width:50px;height:50px;background:#666;position:absolute;left:0;"></div>
+            </div>
+            还可以与定时器合用，实现banner滚动
+            <pre>//html部分，最外层div要position:relative; ul整体滚动position:absolute;
+//为了实现循环滚动效果，在最后增加了一个与1一模一样的，需要在js中做一些处理
+&lt;div style="position:relative;width:100px;height:100px;border:1px solid #666;overflow:hidden;"&gt;
+    &lt;ul id="bannerMove" style="position:absolute;white-space:nowrap;"&gt;
+        &lt;li style="background:#f00;"&gt;1&lt;/li&gt;
+        &lt;li style="background:#0f0;"&gt;2&lt;/li&gt;
+        &lt;li style="background:#00f;"&gt;3&lt;/li&gt;
+        &lt;li style="background:#f00;"&gt;1&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+//js部分，以下为自己写的封装，可根据自己需求改写；
+var bannerScroll = function(dom, time, speed, num) {
+    var w = 100,
+        left = +dom.style.left.replace('px', '') || 0,
+        i = Math.ceil(Math.abs(left) / w); //当前是第几个
+    var finalLeft = -(i + 1) * w;
+    setTimeout(bannerScroll.bind(null, dom, time, speed, num), time);
+    util.animateLeft(dom, finalLeft, speed, function() {
+        if (i == num) { //到最后了
+            dom.style.left = -w + 'px';
+        }
+    });
+};
+bannerScroll(document.getElementById('bannerMove'), 2000, 500, 3);</pre>
+            <div style="position:relative;width:200px;height:100px;border:1px solid #666;overflow:hidden;">
+                <ul id="bannerMove" style="position:absolute;white-space:nowrap;">
+                    <li style="background:#f00;">banner1</li>
+                    <li style="background:#0f0;">banner2</li>
+                    <li style="background:#00f;">banner3</li>
+                    <li style="background:#f00;">banner1</li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            bannerMove(dom, cb, w)-(移动端only)滑动触发banner滚动，依赖util.animateLeft()
+            <pre>//为实现无限滚动，前后分别加了3和1，并在js里做处理
+util.bannerMove(document.getElementById('touchMove'), function() {
+    var dom = document.getElementById('touchMove'),
+        w = 100,
+        left = +dom.style.left.replace('px', '') || 0,
+        n = dom.children.length, //共有几个banner（包括前后额外两个做效果的）
+        i = Math.ceil(Math.abs(left) / w); //划完后当前是第几个
+    if (i == n - 1) { //右滑到最后了，重定位
+        dom.style.left = -w + 'px';
+    } else if (i == 0) { //左滑到第一个了，重定位
+        dom.style.left = -w * (n - 2) + 'px';
+    }
+}, 100);</pre> 滑动试试（移动端）
+            <div style="position:relative;width:200px;height:100px;border:1px solid #666;overflow:hidden;">
+                <ul id="touchMove" style="position:absolute;white-space:nowrap;left:-200px;">
+                    <li style="background:#00f;">touch3</li>
+                    <li style="background:#f00;">touch1</li>
+                    <li style="background:#0f0;">touch2</li>
+                    <li style="background:#00f;">touch3</li>
+                    <li style="background:#f00;">touch1</li>
+                </ul>
+            </div>
+            轮播滑动混合
+            <div style="position:relative;width:200px;height:100px;border:1px solid #666;overflow:hidden;">
+                <ul id="mixMove" style="position:absolute;white-space:nowrap;left:-200px;">
+                    <li style="background:#00f;">mix3</li>
+                    <li style="background:#f00;">mix1</li>
+                    <li style="background:#0f0;">mix2</li>
+                    <li style="background:#00f;">mix3</li>
+                    <li style="background:#f00;">mix1</li>
+                </ul>
+            </div>
+        </li>
+    </ol>
+    <script src="../util-zldl.js"></script>
+    <script>
+    ! function() {
+        var param = 'test';
+        document.getElementById('urlParamP').innerHTML = param;
+        document.getElementById('urlParamV').innerHTML = util.urlParam(param);
+        document.getElementById('fullpath').innerHTML = util.fullPath();
+        var a = new Date(111111);
+        document.getElementById('ymdhms').innerHTML = a.Format("yyyy-MM-dd hh:mm:ss.S");
+        document.getElementById('ymdhms2').innerHTML = a.Format("yyyy-M-d h:m:s.S");
+        var animateToRight = true,
+            dom = document.getElementById('box'),
+            roadWidth = dom.parentElement.offsetWidth;
+        document.getElementById('animateleft').onclick = function() {
+            if (animateToRight) {
+                util.animateLeft(dom, roadWidth - 50, 500, function() {
+                    animateToRight = false;
+                })
+            } else {
+                util.animateLeft(dom, 0, 500, function() {
+                    animateToRight = true;
+                })
+            }
+        };
+        //自动轮播
+        var bannerScroll = function(dom, time, speed, num) {
+            var w = 200,
+                left = +dom.style.left.replace('px', '') || 0,
+                i = Math.ceil(Math.abs(left) / w); //当前是第几个
+            var finalLeft = -(i + 1) * w;
+            setTimeout(bannerScroll.bind(null,dom, time, speed, num), time);
+            util.animateLeft(dom, finalLeft, speed, function() {
+                if (i == num - 1) { //到最后了
+                    dom.style.left = 0;
+                }
+            });
+        };
+        bannerScroll(document.getElementById('bannerMove'), 1800, 500, 3);
+        //滑动
+        util.bannerMove(document.getElementById('touchMove'), function() {
+            var dom = document.getElementById('touchMove'),
+                w = 200,
+                left = +dom.style.left.replace('px', '') || 0,
+                n = dom.children.length, //共有几个banner（包括前后额外两个做效果的）
+                i = Math.ceil(Math.abs(left) / w); //划完后当前是第几个
+            if (i >= n - 1) { //右滑到最后了，重定位
+                dom.style.left = -w + 'px';
+            } else if (i <= 0) { //左滑到第一个了，重定位
+                dom.style.left = -w * (n - 2) + 'px';
+            }
+        }, 200);
+        //混合轮播
+        util.bannerMove(document.getElementById('mixMove'), function() {
+            var dom = document.getElementById('mixMove'),
+                w = 200,
+                left = +dom.style.left.replace('px', '') || 0,
+                n = dom.children.length, //共有几个banner（包括前后额外两个做效果的）
+                i = Math.ceil(Math.abs(left) / w); //划完后当前是第几个
+            if (i >= n - 1) { //右滑到最后了，重定位
+                dom.style.left = -w + 'px';
+            } else if (i <= 0) { //左滑到第一个了，重定位
+                dom.style.left = -w * (n - 2) + 'px';
+            }
+        }, 200);
+        var mixScroll = function(dom, time, speed, num) {
+            var w = 200,
+                left = +dom.style.left.replace('px', '') || 0,
+                i = Math.ceil(Math.abs(left) / w); //当前是第几个
+            var finalLeft = -(i + 1) * w;
+            setTimeout(mixScroll.bind(null,dom, time, speed, num), time);
+            util.animateLeft(dom, finalLeft, speed, function() {
+                if (i >= num - 1) { //到最后了
+                    dom.style.left = 0;
+                }
+            });
+        };
+        mixScroll(document.getElementById('mixMove'), 2000, 500, 3)
+    }()
+    </script>
+</body>
+
+</html>
