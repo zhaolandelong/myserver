@@ -5,6 +5,7 @@ var express = require('express'),
 app.use(express.static(path.resolve(__dirname, '../static')));
 var server = app.listen(8888),
     ws = io.listen(server);
+console.log('listen ' + __dirname + ':8888');
 /*app.get('/', function(req, res) {
     res.send('Hello World!');
     // res.sendFile('/home/zldl/myserver/static/index.html');
