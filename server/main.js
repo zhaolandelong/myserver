@@ -1,13 +1,15 @@
-var express = require('express'),
+const express = require('express'),
     io = require('socket.io'),
     path = require('path'),
+    mongoose = require('./config/mongoose.js'),
+    db = mongoose(),
     routerCm = require('./router/cm.js'),
     app = express();
-    app.use(express.static(path.resolve(__dirname, '../../my-js')));
+app.use(express.static(path.resolve(__dirname, '../../my-js')));
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/cmapis',routerCm);
-var server = app.listen(8888),
-    ws = io.listen(server);
+const server = app.listen(8888);
+const ws = io.listen(server);
 console.log('listen ' + __dirname + ':8888');
 // ws.on('connection', function(client) {
 //     client.on('join', function(msg) {
