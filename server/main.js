@@ -5,7 +5,7 @@ var express = require('express'),
     app = express();
     app.use(express.static(path.resolve(__dirname, '../../my-js')));
 app.use(express.static(path.resolve(__dirname, '../public')));
-app.use('/cm',routerCm);
+app.use('/cmapis',routerCm);
 var server = app.listen(8888),
     ws = io.listen(server);
 console.log('listen ' + __dirname + ':8888');
