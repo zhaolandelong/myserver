@@ -32,7 +32,7 @@ router.post('/post',function(req, res){
     res.json({code:-1,msg:'save failed'});
   }
 });
-router.get('/test',function(req,res){
+router.get('/addAll',function(req,res){
   var data = [
     {
       ask:{
@@ -105,5 +105,13 @@ router.get('/test',function(req,res){
     });
   }
   res.end();
+});
+router.get('/removeAll',function(req,res){
+  User.remove({},function(err){
+    if(err){
+      console.log(err);
+    }
+    res.end();
+  });
 });
 module.exports = router;
