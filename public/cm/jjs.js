@@ -1,4 +1,0 @@
-function chatsmessage(){
-	//var vount= document.getElementsByClassName("button3");
-	alert("Ö¥Âé¿ªÃÅ");
-}
