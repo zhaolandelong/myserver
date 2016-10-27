@@ -8,7 +8,7 @@ const express = require('express'),
 app.use(express.static(path.resolve(__dirname, '../../my-js')));
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/cmapis',routerCm);
-const server = app.listen(8888);
+const server = app.listen(80);
 const ws = io.listen(server);
 console.log('listen ' + __dirname + ':8888');
 // ws.on('connection', function(client) {
