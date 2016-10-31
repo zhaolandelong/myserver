@@ -9,15 +9,44 @@ var User = mongoose.model('User');
 // });
 router.use(require('body-parser').urlencoded({extended: true}));
 // 定义网站主页的路由
+
+//获取数据
 router.get('/get', function(req, res) {
-  User.find({},function(err,docs){
-    if(err){
-      console.log(err);
-      return;
-    }
-    res.json(docs);
+  // User.find({},function(err,docs){
+  //   if(err){
+  //     console.log(err);
+  //     return;
+  //   }
+  //   res.json(docs);
+  // });
+  var page = +req.query.page || 1,
+      pageSize = +req.query.pageSize || 5;
+  User.count({},function(err,count){
+    User.find()
+    .skip((page-1)*pageSize)
+    .limit(pageSize)
+    .exec(function(err,docs){
+      if(err){
+        return next(err);
+      }else{
+        var data = {
+          data: {
+            datas: docs,
+            page: page,
+            pageSize: pageSize,
+            total: count,
+            totalPage: Math.ceil(count/pageSize)
+          },
+          code: 1,
+          msg: 'Get info successfully!'
+        }
+        res.json(data);
+      }
+    });
   });
 });
+
+//提交数据
 router.post('/post',function(req, res){
   var data = req.body;
   if(data){
