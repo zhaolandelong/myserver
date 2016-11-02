@@ -1,3 +1,6 @@
 [submodule "public/cm"]
 	path = public/cm
 	url = https://github.com/chenjycm/cm.git
+[submodule "public/zldl"]
+	path = public/zldl
+	url = https://github.com/zhaolandelong/my-js.git

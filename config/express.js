@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 module.exports = function() {
     console.log('init express...');
     const app = express();
 
     app.use(bodyParser.json());
-
+    console.log(__dirname);
+    app.use(express.static(path.resolve(__dirname, '../public')));
     require('../app/routes/cm.server.routes.js')(app);
 
     app.use(function(req, res, next) {
