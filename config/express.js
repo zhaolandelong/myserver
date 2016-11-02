@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 module.exports = function() {
     console.log('init express...');
-    var app = express();
+    const app = express();
 
     app.use(bodyParser.json());
+
+    require('../app/routes/cm.server.routes.js')(app);
 
     app.use(function(req, res, next) {
         res.status(404);
