@@ -4,12 +4,10 @@ const path = require('path');
 module.exports = function() {
     console.log('init express...');
     const app = express();
-
-    app.use(bodyParser.json());
-    console.log(__dirname);
-    app.use(express.static(path.resolve(__dirname, '../public')));
     require('../app/routes/cm.server.routes.js')(app);
 
+    app.use(bodyParser.json());
+    app.use(express.static('./public'));
     app.use(function(req, res, next) {
         res.status(404);
         try {
@@ -18,7 +16,6 @@ module.exports = function() {
             console.error('404 set header after sent');
         }
     });
-
     app.use(function(err, req, res, next) {
         if (!err) {
             return next();
