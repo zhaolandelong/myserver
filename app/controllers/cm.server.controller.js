@@ -44,7 +44,6 @@ module.exports = {
             ask: req.body
         }).save(function(err) {
             if (err) {
-                console.log(err);
                 return next(err);
             } else {
                 res.json(resData);
@@ -74,26 +73,26 @@ module.exports = {
         });
     },
     testAdd: function(req, res, next) {
-        var daode = ['道可道非常道', '名可名非常名', '无名天地之始', '有名万物之母', '故常无欲以观其妙', '常有欲以观其徼', '二者同出而异名', '同谓之玄', '玄之又玄', '众妙之门'];
-        // for (var i = 0; i < daode.length; i = +2) {
-        //     new Ques({
-        //         ask: {
-        //             name: 'cm',
-        //             txt: daode[i]
-        //         },
-        //         ans: {
-        //             name: 'zldl',
-        //             txt: daode[i + 1],
-        //             time: Date.now()
-        //         }
-        //     }).save(function(err) {
-        //         if (err) {
-        //             console.log(err);
-        //             return next();
-        //         }
-        //     });
-        // }
-        res.end(daode);
+        var daode = ['道德经', '第一章', '道可道非常道', '名可名非常名', '无名天地之始', '有名万物之母', '故常无欲以观其妙', '常有欲以观其徼', '二者同出而异名', '同谓之玄', '玄之又玄', '众妙之门'];
+        for (var i = 0; i < daode.length; i += 2) {
+            new Ques({
+                ask: {
+                    name: 'cm',
+                    txt: daode[i]
+                },
+                ans: {
+                    name: 'zldl',
+                    txt: daode[i + 1],
+                    time: Date.now()
+                }
+            }).save(function(err) {
+                if (err) {
+                    console.log(err);
+                    return next();
+                }
+            });
+        }
+        res.json(resData);
     },
     testRemove: function(req, res, next) {
         Ques.remove({}, function(err) {
