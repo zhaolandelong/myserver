@@ -15,7 +15,7 @@ module.exports = {
             } else {
                 var total = count,
                     totalPage = Math.ceil(total / pageSize);
-                if (totalPage < page) {
+                if (totalPage < page || page < 1) {
                     return next();
                 } else {
                     Ques.find()

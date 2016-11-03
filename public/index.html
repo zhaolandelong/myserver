@@ -56,14 +56,99 @@
             cm的test项目
             <br>
             <a href="/cm/index.html">demo</a>
+            <br> apis：
+            <ol>
+                <li>
+                    <p>获取问答数据</p>
+                    <pre>url: /cmapis/getQues</pre>
+                    <pre>type: get</pre>
+                    <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
+                    <pre>res: {
+      "code": 0,  //返回码 0-成功
+      "msg": "success!",  //返回信息
+      "data": {  //数据对象
+          "datas": [{  //问答数据数组
+              "_id": "581b5009e0060f15261abe3a",  //问答id
+              "__v": 0,
+              "ans": {
+                  "name": "zldl5778",  //回复人姓名
+                  "txt": "有好多好多位",  //回复内容
+                  "time": 1478184969145   //回复时间戳
+              },
+              "ask": {
+                  "name": "cm6847",   //提问者姓名
+                  "txt": "你知道后面有几位数字吗——0.4821643019095063",   //提问内容
+                  "time": 1478184326207   //提问时间戳
+              }
+          }, {
+              "_id": "581b500fe0060f15261abe3b",
+              "__v": 0,
+              "ans": {
+                  "name": "zldl7296",
+                  "txt": "有好多好多位",
+                  "time": 1478184975722
+              },
+              "ask": {
+                  "name": "cm6738",
+                  "txt": "你知道后面有几位数字吗——0.5551610698457807",
+                  "time": 1478184326207
+              }
+          }],
+          "page": 1,   //当前页码
+          "pageSize": 10,   //每页多少条
+          "total": 2,   //总共多少条
+          "totalPage": 1   总共多少页
+      }
+  }</pre>
+                </li>
+                <li>
+                    <p>提交问题</p>
+                    <pre>url: /cmapis/postQues</pre>
+                    <pre>type: post</pre>
+                    <pre>data: {
+    name: 'cm',   //提问者姓名——string,required
+    txt: '还是事实上',   //提问内容——string,required
+    time: 1478184969145   //提问时间戳——number（可不传，在服务器取时间）
+  }</pre>
+                    <pre>res: {
+      code: 0,
+      msg: 'success!'
+  }</pre>
+                </li>
+                <li>
+                    <p>添加一条提问数据</p>
+                    <pre>url: /cmapis/testAddOne</pre>
+                    <pre>type: get</pre>
+                    <pre>data: null</pre>
+                    <pre>res: {
+      code: 0,
+      msg: 'success!'
+  }</pre>
+                </li>
+                <li>
+                    <p>添加多条提问/回复数据</p>
+                    <pre>url: /cmapis/testAdd</pre>
+                    <pre>type: get</pre>
+                    <pre>data: null</pre>
+                    <pre>res: {
+      code: 0,
+      msg: 'success!'
+  }</pre>
+                </li>
+                <li>
+                    <p>删除全部数据</p>
+                    <pre>url: /cmapis/testRemove</pre>
+                    <pre>type: get</pre>
+                    <pre>data: null</pre>
+                    <pre>res: {
+      code: 0,
+      msg: 'success!'
+  }</pre>
+                </li>
+            </ol>
         </li>
-        <!-- <li>
-            api test
-            <br>
-            <a href="/apis.html">demo</a>
-        </li> -->
     </ol>
-    <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <!-- <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
     <script type="text/javascript">
         $.ajax({
             url: '/cmapis/postQues',
@@ -80,7 +165,7 @@
                 console.log(err);
             }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
