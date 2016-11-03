@@ -6,21 +6,22 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>Welcome</title>
     <style>
-    body {
-        margin: 0;
-        padding: 0 10px;
-    }
+        body {
+            margin: 0;
+            padding: 0 10px;
+        }
 
-    li {
-        padding: 10px 0;
-    }
-    a{
-        margin: 10px 0;
-        display: inline-block;
-        text-decoration: none;
-        border: 1px solid #ccc;
-        padding: 10px 20px;
-    }
+        li {
+            padding: 10px 0;
+        }
+
+        a {
+            margin: 10px 0;
+            display: inline-block;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+        }
     </style>
 </head>
 
@@ -62,6 +63,24 @@
             <a href="/apis.html">demo</a>
         </li> -->
     </ol>
+    <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $.ajax({
+            url: '/cmapis/postQues',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                name: 'test name',
+                txt: 'test txt'
+            },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    </script>
 </body>
 
 </html>

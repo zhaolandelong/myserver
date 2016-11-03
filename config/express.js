@@ -1,13 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+
 module.exports = function() {
     console.log('init express...');
     const app = express();
-    require('../app/routes/cm.server.routes.js')(app);
 
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
     app.use(bodyParser.json());
     app.use(express.static('./public'));
+    app.use('/cmapis', require('../app/routes/cm.server.routes.js'));
     app.use(function(req, res, next) {
         res.status(404);
         try {

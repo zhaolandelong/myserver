@@ -12,17 +12,14 @@ const Ques = new Schema({
             required: true
         },
         time: {
-            type: Date,
-            default: Date.now
+            type: Number,
+            default: Date.now()
         }
     },
     ans: {
         name: String,
         txt: String,
-        time: {
-            type: Date,
-            default: Date.now
-        }
+        time: Number
     }
 });
 
