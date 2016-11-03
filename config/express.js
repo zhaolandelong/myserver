@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 module.exports = function() {
-    console.log('init express...');
     const app = express();
 
     app.use(bodyParser.urlencoded({
