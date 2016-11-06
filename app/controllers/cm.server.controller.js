@@ -50,6 +50,21 @@ module.exports = {
             }
         });
     },
+    postAns: function(req, res, next) {
+        Ques.findByIdAndUpdate(req.body.id, {
+            ans: {
+                name: req.body.name,
+                txt: req.body.txt,
+                time: req.body.time || Date.now()
+            }
+        }, function(err) {
+            if (err) {
+                next(err);
+            } else {
+                res.json(resData);
+            }
+        });
+    },
     testAddOne: function(req, res, next) {
         var data = {
             ask: {
