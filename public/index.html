@@ -22,6 +22,11 @@
             border: 1px solid #ccc;
             padding: 10px 20px;
         }
+
+        .toggle {
+            padding: 0 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -59,11 +64,11 @@
             <br> apis：
             <ol>
                 <li>
-                    <p>获取问答数据</p>
-                    <pre>url: /cmapis/getQues</pre>
-                    <pre>type: get</pre>
-                    <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
-                    <pre>res: {
+                    <p><span class="toggle">▼</span>获取问答数据(/cmapis/getQues)</p>
+                    <div style="display:none;">
+                        <pre>type: get</pre>
+                        <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
+                        <pre>res: {
       "code": 0,  //返回码 0-成功
       "msg": "success!",  //返回信息
       "data": {  //数据对象
@@ -100,63 +105,123 @@
           "totalPage": 1   总共多少页
       }
   }</pre>
+                    </div>
                 </li>
                 <li>
-                    <p>提交问题</p>
-                    <pre>url: /cmapis/postQues</pre>
-                    <pre>type: post</pre>
-                    <pre>data: {
-    name: 'cm',   //提问者姓名——string,required
-    txt: '还是事实上',   //提问内容——string,required
-    time: 1478184969145   //提问时间戳——number（可不传，在服务器取时间）
-  }</pre>
-                    <pre>res: {
-      code: 0,
-      msg: 'success!'
-  }</pre>
+                    <p><span class="toggle">▼</span>提交问题(/cmapis/postQues)</p>
+                    <div style="display:none;">
+                        <pre>type: post</pre>
+                        <pre>data: {
+      name: 'cm',   //提问者姓名——string,required
+      txt: '还是事实上',   //提问内容——string,required
+      time: 1478184969145   //提问时间戳——number（可不传，在服务器取时间）
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
                 </li>
                 <li>
-                    <p>添加一条提问数据</p>
-                    <pre>url: /cmapis/testAddOne</pre>
-                    <pre>type: get</pre>
-                    <pre>data: null</pre>
-                    <pre>res: {
-      code: 0,
-      msg: 'success!'
-  }</pre>
+                    <p><span class="toggle">▼</span>提交回答(/cmapis/postAns)</p>
+                    <div style="display:none;">
+                        <pre>type: post</pre>
+                        <pre>data: {
+      id: '581b5009e0060f15261abe3a',   //问题对应的id——string,required
+      name: 'cm',   //回答者姓名——string
+      txt: '还是事实上',   //回答内容——string
+      time: 1478184969145   //回答时间戳——number（可不传，在服务器取时间）
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
                 </li>
                 <li>
-                    <p>添加多条提问/回复数据</p>
-                    <pre>url: /cmapis/testAdd</pre>
-                    <pre>type: get</pre>
-                    <pre>data: null</pre>
-                    <pre>res: {
-      code: 0,
-      msg: 'success!'
-  }</pre>
+                    <p><span class="toggle">▼</span>删除提问(/cmapis/delQues)</p>
+                    <div style="display:none;">
+                        <pre>type: post</pre>
+                        <pre>data: {
+      id: '581b5009e0060f15261abe3a'   //问题对应的id——string,required
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
                 </li>
                 <li>
-                    <p>删除全部数据</p>
-                    <pre>url: /cmapis/testRemove</pre>
-                    <pre>type: get</pre>
-                    <pre>data: null</pre>
-                    <pre>res: {
-      code: 0,
-      msg: 'success!'
-  }</pre>
+                    <p><span class="toggle">▼</span>添加一条提问数据(/cmapis/testAddOne)</p>
+                    <div style="display:none;">
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span class="toggle">▼</span>添加多条提问/回复数据(/cmapis/testAdd)</p>
+                    <div style="display:none;">
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span class="toggle">▼</span>删除全部数据(/cmapis/testRemove)</p>
+                    <div style="display:none;">
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
                 </li>
             </ol>
         </li>
     </ol>
-    <!-- <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
+    <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <script>
+        $(document).on('click', '.toggle', function() {
+            var $self = $(this);
+            if ($self.text() == '▲') {
+                $self.text('▼');
+            } else {
+                $self.text('▲');
+            }
+            $self.parent().next().toggle();
+        });
+    </script>
+    <!-- <script type="text/javascript">
         $.ajax({
-            url: '/cmapis/postQues',
+            url: '/cmapis/delQues',
             type: 'POST',
             dataType: 'json',
             data: {
-                name: 'test name',
-                txt: 'test txt'
+                id:'581b4da3e0060f15261abe38'
+            },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+        $.ajax({
+            url: '/cmapis/postAns',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id:'581b4da3e0060f15261abe38',
+                name: 'test ans name 111',
+                txt: 'test ans txt'
             },
             success: function(res) {
                 console.log(res);

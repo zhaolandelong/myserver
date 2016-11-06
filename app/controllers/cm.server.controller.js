@@ -51,19 +51,40 @@ module.exports = {
         });
     },
     postAns: function(req, res, next) {
-        Ques.findByIdAndUpdate(req.body.id, {
-            ans: {
-                name: req.body.name,
-                txt: req.body.txt,
-                time: req.body.time || Date.now()
-            }
-        }, function(err) {
-            if (err) {
-                next(err);
-            } else {
-                res.json(resData);
-            }
-        });
+        var query = req.body;
+        if (!query.id) {
+            res.end('id is required!')
+        } else {
+            Ques.findByIdAndUpdate(query.id, {
+                ans: {
+                    name: query.name,
+                    txt: query.txt,
+                    time: query.time || Date.now()
+                }
+            }, function(err) {
+                if (err) {
+                    next(err);
+                } else {
+                    res.json(resData);
+                }
+            });
+        }
+    },
+    delQues: function(req, res, next) {
+        var query = req.body;
+        if (!query.id) {
+            res.end('id is required!')
+        } else {
+            Ques.findByIdAndRemove(query.id, function(err) {
+                if (err) {
+                    res.end(err);
+                    // next(err);
+                } else {
+                    res.json(resData);
+                }
+            });
+        }
+
     },
     testAddOne: function(req, res, next) {
         var data = {
@@ -93,7 +114,7 @@ module.exports = {
             new Ques({
                 ask: {
                     name: 'cm',
-                    txt: daode[i]
+                    txt: daodequery
                 },
                 ans: {
                     name: 'zldl',
