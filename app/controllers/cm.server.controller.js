@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const xss = require('xss');
 const Ques = mongoose.model('Ques');
 var resData = {
     code: 0,
@@ -40,8 +41,13 @@ module.exports = {
         });
     },
     postQues: function(req, res, next) {
+        var query = req.body;
         new Ques({
-            ask: req.body
+            ask: {
+                name: xss(query.name),
+                txt: xss(query.txt),
+                time: query.time || Date.now()
+            }
         }).save(function(err) {
             if (err) {
                 return next(err);
@@ -53,12 +59,12 @@ module.exports = {
     postAns: function(req, res, next) {
         var query = req.body;
         if (!query.id) {
-            res.end('id is required!')
+            res.end('id is required!');
         } else {
             Ques.findByIdAndUpdate(query.id, {
                 ans: {
-                    name: query.name,
-                    txt: query.txt,
+                    name: xss(query.name),
+                    txt: xss(query.txt),
                     time: query.time || Date.now()
                 }
             }, function(err) {

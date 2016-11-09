@@ -13,5 +13,8 @@
     "express": "^4.14.0",
     "mongoose": "^4.6.4",
     "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "xss": "^0.2.17"
   }
 }

@@ -23,4 +23,4 @@ const Ques = new Schema({
     }
 });
 
-mongoose.model('Ques',Ques);
+mongoose.model('Ques', Ques);
