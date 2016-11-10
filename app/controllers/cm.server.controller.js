@@ -129,7 +129,7 @@ module.exports = {
             new Ques({
                 ask: {
                     name: 'cm',
-                    txt: daodequery
+                    txt: daode[i]
                 },
                 ans: {
                     name: 'zldl',
