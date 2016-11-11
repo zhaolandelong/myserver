@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const CMctr = require('../controllers/cm.server.controller.js');
+const ctr = require('../controllers/cm.server.controller.js');
 
-router.get('/getQues', CMctr.getQues);
-router.post('/postQues', CMctr.postQues);
-router.post('/postAns', CMctr.postAns);
-router.post('/delQues', CMctr.delQues);
-router.get('/testRemove', CMctr.testRemove);
-router.get('/testAdd', CMctr.testAdd);
-router.get('/testAddOne', CMctr.testAddOne);
+router.get('/getQues', ctr.getQues);
+router.post('/postQues', ctr.postQues);
+router.post('/postAns', ctr.postAns);
+router.post('/delQues', ctr.delQues);
+router.get('/testRemove', ctr.testRemove);
+router.get('/testAdd', ctr.testAdd);
+router.get('/testAddOne', ctr.testAddOne);
 
 module.exports = router;

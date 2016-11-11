@@ -5,12 +5,15 @@ const path = require('path');
 module.exports = function() {
     const app = express();
 
+    app.set('views','./views');
+    app.set('view engine','jade');
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
     app.use(express.static('./public'));
     app.use('/cmapis', require('../app/routes/cm.server.routes.js'));
+    app.use('/',require('../app/routes/index.server.routes.js'));
     app.use(function(req, res, next) {
         res.status(404);
         try {
