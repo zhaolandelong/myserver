@@ -40,6 +40,21 @@ module.exports = {
             }
         });
     },
+    getOne: function(req, res, next) {
+        var query = req.query;
+        if (!query.id) {
+            res.end('id is required!')
+        } else {
+            Ques.findById(query.id).exec(function(err, doc) {
+                if (err) {
+                    next(err);
+                } else {
+                    resData.data = doc;
+                    res.json(resData);
+                }
+            });
+        }
+    },
     postQues: function(req, res, next) {
         var query = req.body;
         new Ques({

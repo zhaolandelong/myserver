@@ -23,8 +23,7 @@
             padding: 10px 20px;
         }
 
-        .toggle {
-            padding: 0 5px;
+        #apis li>p {
             cursor: pointer;
         }
     </style>
@@ -58,14 +57,20 @@
             <a href="/zldl/util/demo/demo.html">demo</a>
         </li>
         <li>
-            cm的test项目
+            cm的test项目-list.html
+            <br>
+            <a href="/cm/list.html">demo</a>
+        </li>
+        <li>
+            cm的test项目-index.html
             <br>
             <a href="/cm/index.html">demo</a>
             <br> apis：
-            <ol>
+            <ol id="apis">
                 <li>
-                    <p><span class="toggle">▼</span>获取问答数据(/cmapis/getQues)</p>
+                    <p><span>▼</span>获取全部问答数据(/cmapis/getQues)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/getQues</pre>
                         <pre>type: get</pre>
                         <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
                         <pre>res: {
@@ -108,8 +113,37 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>提交问题(/cmapis/postQues)</p>
+                    <p><span>▼</span>获取单个问答数据(/cmapis/getOne)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/getOne</pre>
+                        <pre>type: get</pre>
+                        <pre>data: ?id=1 //id——要获取的问题id</pre>
+                        <pre>res: {
+    "code": 0,  //返回码 0-成功
+    "msg": "success!",  //返回信息
+    "data": {  //数据对象
+        {  //问答数据数组
+            "_id": "581b5009e0060f15261abe3a",  //问答id
+            "__v": 0,
+            "ans": {
+                "name": "zldl5778",  //回复人姓名
+                "txt": "有好多好多位",  //回复内容
+                "time": 1478184969145   //回复时间戳
+            },
+            "ask": {
+                "name": "cm6847",   //提问者姓名
+                "txt": "你知道后面有几位数字吗——0.4821643019095063",   //提问内容
+                "time": 1478184326207   //提问时间戳
+            }
+        }
+    }
+}</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>提交问题(/cmapis/postQues)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/postQues</pre>
                         <pre>type: post</pre>
                         <pre>data: {
       name: 'cm',   //提问者姓名——string,required
@@ -123,8 +157,9 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>提交回答(/cmapis/postAns)</p>
+                    <p><span>▼</span>提交回答(/cmapis/postAns)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/postAns</pre>
                         <pre>type: post</pre>
                         <pre>data: {
       id: '581b5009e0060f15261abe3a',   //问题对应的id——string,required
@@ -139,8 +174,9 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>删除提问(/cmapis/delQues)</p>
+                    <p><span>▼</span>删除提问(/cmapis/delQues)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/delQues</pre>
                         <pre>type: post</pre>
                         <pre>data: {
       id: '581b5009e0060f15261abe3a'   //问题对应的id——string,required
@@ -152,8 +188,9 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>添加一条提问数据(/cmapis/testAddOne)</p>
+                    <p><span>▼</span>添加一条提问数据(/cmapis/testAddOne)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/testAddOne</pre>
                         <pre>type: get</pre>
                         <pre>data: null</pre>
                         <pre>res: {
@@ -163,8 +200,9 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>添加多条提问/回复数据(/cmapis/testAdd)</p>
+                    <p><span>▼</span>添加多条提问/回复数据(/cmapis/testAdd)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/testAdd</pre>
                         <pre>type: get</pre>
                         <pre>data: null</pre>
                         <pre>res: {
@@ -174,8 +212,9 @@
                     </div>
                 </li>
                 <li>
-                    <p><span class="toggle">▼</span>删除全部数据(/cmapis/testRemove)</p>
+                    <p><span>▼</span>删除全部数据(/cmapis/testRemove)</p>
                     <div style="display:none;">
+                        <pre>url: /cmapis/testRemove</pre>
                         <pre>type: get</pre>
                         <pre>data: null</pre>
                         <pre>res: {
@@ -189,48 +228,49 @@
     </ol>
     <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
     <script>
-        $(document).on('click', '.toggle', function() {
-            var $self = $(this);
-            if ($self.text() == '▲') {
-                $self.text('▼');
+        $(document).on('click', '#apis li>p', function() {
+            var $self = $(this).parent('li'),
+                $span = $self.children('p').children('span');
+            if ($span.text() == '▲') {
+                $span.text('▼');
             } else {
-                $self.text('▲');
+                $span.text('▲');
             }
-            $self.parent().next().toggle();
+            $self.children('div').toggle();
         });
     </script>
-    <!-- <script type="text/javascript">
-        $.ajax({
-            url: '/cmapis/delQues',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                id:'581b4da3e0060f15261abe38'
-            },
-            success: function(res) {
-                console.log(res);
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        });
-        $.ajax({
-            url: '/cmapis/postAns',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                id:'581b4da3e0060f15261abe38',
-                name: 'test ans name 111',
-                txt: 'test ans txt'
-            },
-            success: function(res) {
-                console.log(res);
-            },
-            error: function(err) {
-                console.log(err);
-            }
-        });
-    </script> -->
+    <script type="text/javascript">
+        // $.ajax({
+        //     url: '/cmapis/delQues',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     data: {
+        //         id:'581b4da3e0060f15261abe38'
+        //     },
+        //     success: function(res) {
+        //         console.log(res);
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // });
+        // $.ajax({
+        //     url: '/cmapis/postAns',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     data: {
+        //         id:'581b4da3e0060f15261abe38',
+        //         name: 'test ans name 111',
+        //         txt: 'test ans txt'
+        //     },
+        //     success: function(res) {
+        //         console.log(res);
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // });
+    </script>
 </body>
 
 </html>
