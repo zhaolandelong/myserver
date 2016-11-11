@@ -1,20 +1,21 @@
+'use strict';
 const mongoose = require('mongoose');
 const xss = require('xss');
 const Ques = mongoose.model('Ques');
-var resData = {
+let resData = {
     code: 0,
     msg: 'success!'
 };
 
 module.exports = {
-    getQues: function(req, res, next) {
-        var page = +req.query.page || 1,
+    getQues: (req, res, next) => {
+        const page = +req.query.page || 1,
             pageSize = +req.query.pageSize || 10;
-        Ques.count({}, function(err, count) {
+        Ques.count({}, (err, count) => {
             if (err) {
                 return next(err);
             } else {
-                var total = count,
+                const total = count,
                     totalPage = Math.ceil(total / pageSize);
                 if (totalPage < page || page < 1) {
                     return next();
@@ -22,7 +23,7 @@ module.exports = {
                     Ques.find()
                         .skip((page - 1) * pageSize)
                         .limit(pageSize)
-                        .exec(function(err, docs) {
+                        .exec((err, docs) => {
                             if (err) {
                                 res.end(err);
                             } else {
@@ -40,12 +41,12 @@ module.exports = {
             }
         });
     },
-    getOne: function(req, res, next) {
-        var query = req.query;
+    getOne: (req, res, next) => {
+        const query = req.query;
         if (!query.id) {
             res.end('id is required!')
         } else {
-            Ques.findById(query.id).exec(function(err, doc) {
+            Ques.findById(query.id).exec((err, doc) => {
                 if (err) {
                     next(err);
                 } else {
@@ -55,15 +56,15 @@ module.exports = {
             });
         }
     },
-    postQues: function(req, res, next) {
-        var query = req.body;
+    postQues: (req, res, next) => {
+        const query = req.body;
         new Ques({
             ask: {
                 name: xss(query.name),
                 txt: xss(query.txt),
                 time: query.time || Date.now()
             }
-        }).save(function(err) {
+        }).save((err) => {
             if (err) {
                 return next(err);
             } else {
@@ -71,8 +72,8 @@ module.exports = {
             }
         });
     },
-    postAns: function(req, res, next) {
-        var query = req.body;
+    postAns: (req, res, next) => {
+        const query = req.body;
         if (!query.id) {
             res.end('id is required!');
         } else {
@@ -82,7 +83,7 @@ module.exports = {
                     txt: xss(query.txt),
                     time: query.time || Date.now()
                 }
-            }, function(err) {
+            }, (err) => {
                 if (err) {
                     next(err);
                 } else {
@@ -91,12 +92,12 @@ module.exports = {
             });
         }
     },
-    delQues: function(req, res, next) {
-        var query = req.body;
+    delQues: (req, res, next) => {
+        const query = req.body;
         if (!query.id) {
             res.end('id is required!')
         } else {
-            Ques.findByIdAndRemove(query.id, function(err) {
+            Ques.findByIdAndRemove(query.id, (err) => {
                 if (err) {
                     res.end(err);
                     // next(err);
@@ -107,8 +108,8 @@ module.exports = {
         }
 
     },
-    testAddOne: function(req, res, next) {
-        var data = {
+    testAddOne: (req, res, next) => {
+        const data = {
             ask: {
                 name: 'cm' + Math.round(Math.random() * 10000, 4),
                 txt: '你知道后面有几位数字吗——' + Math.random()
@@ -119,7 +120,7 @@ module.exports = {
                 time: Date.now()
             }
         };
-        new Ques(data).save(function(err) {
+        new Ques(data).save((err) => {
             if (err) {
                 console.log(err);
                 return next(err);
@@ -129,9 +130,9 @@ module.exports = {
             }
         });
     },
-    testAdd: function(req, res, next) {
-        var daode = ['道德经', '第一章', '道可道非常道', '名可名非常名', '无名天地之始', '有名万物之母', '故常无欲以观其妙', '常有欲以观其徼', '二者同出而异名', '同谓之玄', '玄之又玄', '众妙之门'];
-        for (var i = 0; i < daode.length; i += 2) {
+    testAdd: (req, res, next) => {
+        const daode = ['道德经', '第一章', '道可道非常道', '名可名非常名', '无名天地之始', '有名万物之母', '故常无欲以观其妙', '常有欲以观其徼', '二者同出而异名', '同谓之玄', '玄之又玄', '众妙之门'];
+        for (let i = 0; i < daode.length; i += 2) {
             new Ques({
                 ask: {
                     name: 'cm',
@@ -142,7 +143,7 @@ module.exports = {
                     txt: daode[i + 1],
                     time: Date.now()
                 }
-            }).save(function(err) {
+            }).save((err) => {
                 if (err) {
                     console.log(err);
                     return next();
@@ -151,8 +152,8 @@ module.exports = {
         }
         res.json(resData);
     },
-    testRemove: function(req, res, next) {
-        Ques.remove({}, function(err) {
+    testRemove: (req, res, next) => {
+        Ques.remove({}, (err) => {
             if (err) {
                 return next(err);
             } else {

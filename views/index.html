@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0 10px;
+        }
+
+        li {
+            padding: 10px 0;
+        }
+
+        a {
+            margin: 10px 0;
+            display: inline-block;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+        }
+
+        #apis li>p {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center;font-size:28px;">Welcome to zldl's homepage!</h1> here is my program-links:
+    <ol>
+        <!-- <li>
+            简单的在线聊天系统
+            <br>
+            <a href="/chat.html">demo</a>
+        </li> -->
+        <li>
+            dialog-zldl.js-各种弹窗的样式，如alert，confirm等
+            <br>
+            <a href="/zldl/dialog/demo/demo-2.0.html">demo</a>
+            <br>
+            <a href="/zldl/dialog/demo/demo-seajs.html">seajs-demo</a>
+        </li>
+        <li>
+            pagination-zldl.js简单的翻页
+            <br>
+            <a href="/zldl/pagination/demo/demo-2.0.html">demo</a>
+            <br>
+            <a href="/zldl/pagination/demo/demo-seajs.html">seajs-demo</a>
+        </li>
+        <li>
+            util-zldl.js移动端积累的一些方法，如banner滚动，判断android等
+            <br>
+            <a href="/zldl/util/demo/demo.html">demo</a>
+        </li>
+        <li>
+            cm的test项目-list.html
+            <br>
+            <a href="/cm/list.html">demo</a>
+        </li>
+        <li>
+            cm的test项目-index.html
+            <br>
+            <a href="/cm/index.html">demo</a>
+            <br> apis：
+            <ol id="apis">
+                <li>
+                    <p><span>▼</span>获取全部问答数据(/cmapis/getQues)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/getQues</pre>
+                        <pre>type: get</pre>
+                        <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
+                        <pre>res: {
+      "code": 0,  //返回码 0-成功
+      "msg": "success!",  //返回信息
+      "data": {  //数据对象
+          "datas": [{  //问答数据数组
+              "_id": "581b5009e0060f15261abe3a",  //问答id
+              "__v": 0,
+              "ans": {
+                  "name": "zldl5778",  //回复人姓名
+                  "txt": "有好多好多位",  //回复内容
+                  "time": 1478184969145   //回复时间戳
+              },
+              "ask": {
+                  "name": "cm6847",   //提问者姓名
+                  "txt": "你知道后面有几位数字吗——0.4821643019095063",   //提问内容
+                  "time": 1478184326207   //提问时间戳
+              }
+          }, {
+              "_id": "581b500fe0060f15261abe3b",
+              "__v": 0,
+              "ans": {
+                  "name": "zldl7296",
+                  "txt": "有好多好多位",
+                  "time": 1478184975722
+              },
+              "ask": {
+                  "name": "cm6738",
+                  "txt": "你知道后面有几位数字吗——0.5551610698457807",
+                  "time": 1478184326207
+              }
+          }],
+          "page": 1,   //当前页码
+          "pageSize": 10,   //每页多少条
+          "total": 2,   //总共多少条
+          "totalPage": 1   总共多少页
+      }
+  }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>获取单个问答数据(/cmapis/getOne)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/getOne</pre>
+                        <pre>type: get</pre>
+                        <pre>data: ?id=1 //id——要获取的问题id</pre>
+                        <pre>res: {
+    "code": 0,  //返回码 0-成功
+    "msg": "success!",  //返回信息
+    "data": {  //数据对象
+        {  //问答数据数组
+            "_id": "581b5009e0060f15261abe3a",  //问答id
+            "__v": 0,
+            "ans": {
+                "name": "zldl5778",  //回复人姓名
+                "txt": "有好多好多位",  //回复内容
+                "time": 1478184969145   //回复时间戳
+            },
+            "ask": {
+                "name": "cm6847",   //提问者姓名
+                "txt": "你知道后面有几位数字吗——0.4821643019095063",   //提问内容
+                "time": 1478184326207   //提问时间戳
+            }
+        }
+    }
+}</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>提交问题(/cmapis/postQues)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/postQues</pre>
+                        <pre>type: post</pre>
+                        <pre>data: {
+      name: 'cm',   //提问者姓名——string,required
+      txt: '还是事实上',   //提问内容——string,required
+      time: 1478184969145   //提问时间戳——number（可不传，在服务器取时间）
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>提交回答(/cmapis/postAns)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/postAns</pre>
+                        <pre>type: post</pre>
+                        <pre>data: {
+      id: '581b5009e0060f15261abe3a',   //问题对应的id——string,required
+      name: 'cm',   //回答者姓名——string
+      txt: '还是事实上',   //回答内容——string
+      time: 1478184969145   //回答时间戳——number（可不传，在服务器取时间）
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>删除提问(/cmapis/delQues)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/delQues</pre>
+                        <pre>type: post</pre>
+                        <pre>data: {
+      id: '581b5009e0060f15261abe3a'   //问题对应的id——string,required
+    }</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>添加一条提问数据(/cmapis/testAddOne)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/testAddOne</pre>
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>添加多条提问/回复数据(/cmapis/testAdd)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/testAdd</pre>
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>删除全部数据(/cmapis/testRemove)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/testRemove</pre>
+                        <pre>type: get</pre>
+                        <pre>data: null</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <script>
+        $(document).on('click', '#apis li>p', function() {
+            var $self = $(this).parent('li'),
+                $span = $self.children('p').children('span');
+            if ($span.text() == '▲') {
+                $span.text('▼');
+            } else {
+                $span.text('▲');
+            }
+            $self.children('div').toggle();
+        });
+    </script>
+    <script type="text/javascript">
+        // $.ajax({
+        //     url: '/cmapis/delQues',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     data: {
+        //         id:'581b4da3e0060f15261abe38'
+        //     },
+        //     success: function(res) {
+        //         console.log(res);
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // });
+        // $.ajax({
+        //     url: '/cmapis/postAns',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     data: {
+        //         id:'581b4da3e0060f15261abe38',
+        //         name: 'test ans name 111',
+        //         txt: 'test ans txt'
+        //     },
+        //     success: function(res) {
+        //         console.log(res);
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // });
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
-var config = null;
+'use strict';
+let config = null;
 
 if (process && process.env && process.env.NODE_ENV) {
     config = reqire('./env/' + process.env.NODE_ENV + '.js');

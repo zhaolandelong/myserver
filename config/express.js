@@ -1,20 +1,21 @@
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-module.exports = function() {
+module.exports = () => {
     const app = express();
 
-    app.set('views','./views');
-    app.set('view engine','jade');
+    app.engine('.html', require('./art-template.js').__express);
+    app.set('view engine', 'html');
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
     app.use(express.static('./public'));
     app.use('/cmapis', require('../app/routes/cm.server.routes.js'));
-    app.use('/',require('../app/routes/index.server.routes.js'));
-    app.use(function(req, res, next) {
+    // app.use('/', require('../app/routes/index.server.routes.js'));
+    app.use((req, res, next) => {
         res.status(404);
         try {
             return res.json('Not Found');
@@ -22,7 +23,7 @@ module.exports = function() {
             console.error('404 set header after sent');
         }
     });
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
         if (!err) {
             return next();
         }
