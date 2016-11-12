@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const ctr = require('../controllers/cm.server.controller.js');
 
+router.get('/', ctr.index);
 router.get('/getQues', ctr.getQues);
 router.get('/getOne', ctr.getOne);
 router.post('/postQues', ctr.postQues);

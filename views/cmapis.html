@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cmapis</title>
+</head>
+
+<body>
+    <h1>{{title}}:</h1>
+    <ol>
+        {{each apis as api i}}
+        <li>
+            <h5>{{api.desc}}</h5>
+            <p>url : {{api.url}}</p>
+            <p>type : {{api.type}}</p>
+            <p>data : {{api.data}}</p>
+            <p>res : {{api.res}}</p>
+        </li>
+        {{/each}}
+    </ol>
+    <script>
+        console.log({{title}})
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+    "title": "zldl's homepage",
+    "h1": "Welcome to zldl's homepage",
+    "desc": "It's just for node learning and do tests with friends, here are the links:",
+    "zldl": [{
+        "title": "dialog-zldl.js-各种弹窗的样式，如alert，confirm等",
+        "links": ["/zldl/dialog/demo/demo-2.0.html", "/zldl/dialog/demo/demo-seajs.html"]
+    }, {
+        "title": "pagination-zldl.js简单的翻页",
+        "links": ["/zldl/pagination/demo/demo-2.0.html", "/zldl/pagination/demo/demo-seajs.html"]
+    }, {
+        "title": "util-zldl.js移动端积累的一些方法，如banner滚动，判断android等",
+        "links": ["/zldl/util/demo/demo.html"]
+    }],
+    "cm": [{
+        "title": "cm的test项目-apis",
+        "links": ["/cmapis"]
+    }, {
+        "title": "cm的test项目-index.html",
+        "links": ["/cm/index.html"]
+    }, {
+        "title": "cm的test项目-list.html",
+        "links": ["/cm/list.html"]
+    }]
+}

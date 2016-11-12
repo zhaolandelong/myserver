@@ -2,12 +2,16 @@
 const mongoose = require('mongoose');
 const xss = require('xss');
 const Ques = mongoose.model('Ques');
+const data = require('../jsons/cm.server.apis.json');
 let resData = {
     code: 0,
     msg: 'success!'
 };
 
 module.exports = {
+    index: (req, res, next) => {
+        res.render('cmapis', data);
+    },
     getQues: (req, res, next) => {
         const page = +req.query.page || 1,
             pageSize = +req.query.pageSize || 10;

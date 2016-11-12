@@ -1,0 +1,14 @@
+{
+    "title": "Here all the cmapis",
+    "apis": [{
+        "desc": "获取全部问答数据(/cmapis/getQues)",
+        "url": "/cmapis/getQues",
+        "type": "GET",
+        "data": "?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10",
+        "test":{
+            "test1":"test111",
+            "test2":"test222"
+        },
+        "res": "{\"code\":0,\"msg\":\"success!\",\"data\":{\"datas\":[{\"_id\":\"581b5009e0060f15261abe3a\",\"__v\":0,\"ans\":{\"name\":\"zldl5778\",\"txt\":\"有好多好多位\",\"time\":1478184969145},\"ask\":{\"name\":\"cm6847\",\"txt\":\"你知道后面有几位数字吗——0.4821643019095063\",\"time\":1478184326207}},{\"_id\":\"581b500fe0060f15261abe3b\",\"__v\":0,\"ans\":{\"name\":\"zldl7296\",\"txt\":\"有好多好多位\",\"time\":1478184975722},\"ask\":{\"name\":\"cm6738\",\"txt\":\"你知道后面有几位数字吗——0.5551610698457807\",\"time\":1478184326207}}],\"page\":1,\"pageSize\":10,\"total\":2,\"totalPage\":1}}"
+    }]
+}
