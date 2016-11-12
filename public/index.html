@@ -223,6 +223,56 @@
     }</pre>
                     </div>
                 </li>
+                <li>
+                    <p><span>▼</span>(/cmapis/addUser)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/addUser</pre>
+                        <pre>type: post</pre>
+                        <pre>data: {
+    name: {
+        type: String,
+        required: true
+    },
+    sex: {
+        type: Number,
+        required: true
+    },
+    mobile: {
+        type: Number,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    major: {
+        type: String,
+        required: true
+    },
+    degree: {
+        type: Number,
+        required: true
+    },
+    school: {
+        type: String,
+        required: true
+    }
+}</pre>
+                        <pre>res: {
+        code: 0,
+        msg: 'success!'
+    }</pre>
+                    </div>
+                </li>
+                <li>
+                    <p><span>▼</span>(/cmapis/getUsers)</p>
+                    <div style="display:none;">
+                        <pre>url: /cmapis/getUsers</pre>
+                        <pre>type: get</pre>
+                        <pre>data: ?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10</pre>
+                        <pre>res:</pre>
+                    </div>
+                </li>
             </ol>
         </li>
     </ol>
