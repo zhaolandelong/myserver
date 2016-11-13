@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const xss = require('xss');
 const Ques = mongoose.model('Ques');
 const User = mongoose.model('User');
-const data = require('../jsons/cm.server.apis.json');
+
 let resData = {
     code: 0,
     msg: 'success!'
@@ -11,7 +11,7 @@ let resData = {
 
 module.exports = {
     index: (req, res, next) => {
-        res.render('cmapis', data);
+        res.render('cmapis', require('../jsons/cm.server.apis.json'));
     },
     getQues: (req, res, next) => {
         const page = +req.query.page || 1,
@@ -28,6 +28,9 @@ module.exports = {
                     Ques.find()
                         .skip((page - 1) * pageSize)
                         .limit(pageSize)
+                        .sort({
+                            _id: -1
+                        })
                         .exec((err, docs) => {
                             if (err) {
                                 res.end(err);
@@ -104,14 +107,12 @@ module.exports = {
         } else {
             Ques.findByIdAndRemove(query.id, (err) => {
                 if (err) {
-                    res.end(err);
-                    // next(err);
+                    next(err);
                 } else {
                     res.json(resData);
                 }
             });
         }
-
     },
     testAddOne: (req, res, next) => {
         const data = {
@@ -127,7 +128,6 @@ module.exports = {
         };
         new Ques(data).save((err) => {
             if (err) {
-                console.log(err);
                 return next(err);
             } else {
                 resData.data = data;
@@ -150,7 +150,6 @@ module.exports = {
                 }
             }).save((err) => {
                 if (err) {
-                    console.log(err);
                     return next();
                 }
             });
@@ -167,7 +166,6 @@ module.exports = {
         })
     },
     addUser: (req, res, next) => {
-        console.log(req.body);
         let query = req.body;
         new User(query).save((err) => {
             if (err) {
@@ -192,6 +190,9 @@ module.exports = {
                     User.find()
                         .skip((page - 1) * pageSize)
                         .limit(pageSize)
+                        .sort({
+                            _id: -1
+                        })
                         .exec(function(err, docs) {
                             if (err) {
                                 res.end(err);
@@ -209,5 +210,20 @@ module.exports = {
                 }
             }
         });
+    },
+    delUser: (req, res, next) => {
+        const query = req.body;
+        if (!query.id) {
+            res.end('id is required!')
+        } else {
+            User.findByIdAndRemove(query.id, (err) => {
+                if (err) {
+                    next(err);
+                } else {
+                    res.json(resData);
+                }
+            });
+        }
     }
+
 };

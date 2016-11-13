@@ -6,23 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>cmapis</title>
+    <style>
+        h5{cursor: pointer;}
+    </style>
 </head>
 
 <body>
     <h1>{{title}}:</h1>
-    <ol>
+    <ol id="apis">
         {{each apis as api i}}
         <li>
-            <h5>{{api.desc}}</h5>
-            <p>url : {{api.url}}</p>
-            <p>type : {{api.type}}</p>
-            <p>data : {{api.data}}</p>
-            <p>res : {{api.res}}</p>
+            <h5><span>▼</span>{{api.desc}}</h5>
+            <div style="display:none;">
+                <pre>url : {{api.url}}</pre>
+                <pre>type : {{api.type}}</pre>
+                <pre>data : {{api.data}}</pre>
+                <pre>res : {{api.res}}</pre>
+            </div>
         </li>
         {{/each}}
     </ol>
     <script>
-        console.log({{apis[0].res}})
+        for (var i = 0, titles = document.getElementsByTagName('h5'); i < titles.length; i++) {
+            titles[i].addEventListener('click', function() {
+                this.children[0].innerHTML = this.children[0].innerHTML == '▲' ? '▼' : '▲';
+                this.nextElementSibling.style.display = this.nextElementSibling.style.display == 'none' ? 'block' : 'none';
+            });
+        }
     </script>
 </body>
 

@@ -1,14 +1,70 @@
 {
     "title": "Here all the cmapis",
     "apis": [{
+        "desc": "测试接口：添加一条提问数据(/cmapis/testAddOne)",
+        "url": "/cmapis/testAddOne",
+        "type": "GET",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "测试接口：添加多条提问/回复数据(/cmapis/testAdd)",
+        "url": "/cmapis/testAdd",
+        "type": "GET",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "测试接口：删除全部数据(/cmapis/testRemove)",
+        "url": "/cmapis/testRemove",
+        "type": "GET",
+        "data": "",
+        "res": ""
+    }, {
         "desc": "获取全部问答数据(/cmapis/getQues)",
         "url": "/cmapis/getQues",
         "type": "GET",
         "data": "?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10",
-        "test":{
-            "test1":"test111",
-            "test2":"test222"
-        },
         "res": "{\"code\":0,\"msg\":\"success!\",\"data\":{\"datas\":[{\"_id\":\"581b5009e0060f15261abe3a\",\"__v\":0,\"ans\":{\"name\":\"zldl5778\",\"txt\":\"有好多好多位\",\"time\":1478184969145},\"ask\":{\"name\":\"cm6847\",\"txt\":\"你知道后面有几位数字吗——0.4821643019095063\",\"time\":1478184326207}},{\"_id\":\"581b500fe0060f15261abe3b\",\"__v\":0,\"ans\":{\"name\":\"zldl7296\",\"txt\":\"有好多好多位\",\"time\":1478184975722},\"ask\":{\"name\":\"cm6738\",\"txt\":\"你知道后面有几位数字吗——0.5551610698457807\",\"time\":1478184326207}}],\"page\":1,\"pageSize\":10,\"total\":2,\"totalPage\":1}}"
+    }, {
+        "desc": "获取单个问答数据(/cmapis/getOne)",
+        "url": "/cmapis/getOne",
+        "type": "GET",
+        "data": "?id=1 //id——要获取的问题id",
+        "res": ""
+    }, {
+        "desc": "提交问题(/cmapis/postQues)",
+        "url": "/cmapis/postQues",
+        "type": "POST",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "提交回答(/cmapis/postAns)",
+        "url": "/cmapis/postAns",
+        "type": "POST",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "删除提问(/cmapis/delQues)",
+        "url": "/cmapis/delQues",
+        "type": "POST",
+        "data": "{id:'58175967406aad177ce6a06b'}",
+        "res": ""
+    }, {
+        "desc": "添加(注册)用户(/cmapis/addUser)",
+        "url": "/cmapis/addUser",
+        "type": "POST",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "获取全部用户(/cmapis/getUsers)",
+        "url": "/cmapis/getUsers",
+        "type": "POST",
+        "data": "",
+        "res": ""
+    }, {
+        "desc": "删除用户(/cmapis/delUser)",
+        "url": "/cmapis/delUser",
+        "type": "POST",
+        "data": "{id:'58175967406aad177ce6a06b'}",
+        "res": ""
     }]
 }
