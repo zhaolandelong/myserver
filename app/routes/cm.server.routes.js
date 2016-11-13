@@ -10,5 +10,7 @@ router.post('/delQues', ctr.delQues);
 router.get('/testRemove', ctr.testRemove);
 router.get('/testAdd', ctr.testAdd);
 router.get('/testAddOne', ctr.testAddOne);
+router.post('/addUser',CMctr.addUser);
+router.get('/getUsers',CMctr.getUsers);
 
 module.exports = router;

@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const xss = require('xss');
 const Ques = mongoose.model('Ques');
+const User = mongoose.model('User');
 const data = require('../jsons/cm.server.apis.json');
 let resData = {
     code: 0,
@@ -164,5 +165,49 @@ module.exports = {
                 res.end('Ques all removed!')
             }
         })
+    },
+    addUser: (req, res, next) => {
+        console.log(req.body);
+        let query = req.body;
+        new User(query).save((err) => {
+            if (err) {
+                return next(err);
+            } else {
+                res.json(resData);
+            }
+        });
+    },
+    getUsers: (req, res, next) => {
+        var page = +req.query.page || 1,
+            pageSize = +req.query.pageSize || 10;
+        User.count({}, function(err, count) {
+            if (err) {
+                return next(err);
+            } else {
+                var total = count,
+                    totalPage = Math.ceil(total / pageSize);
+                if (totalPage < page || page < 1) {
+                    return next();
+                } else {
+                    User.find()
+                        .skip((page - 1) * pageSize)
+                        .limit(pageSize)
+                        .exec(function(err, docs) {
+                            if (err) {
+                                res.end(err);
+                            } else {
+                                resData.data = {
+                                    datas: docs,
+                                    page: page,
+                                    pageSize: pageSize,
+                                    total: total,
+                                    totalPage: totalPage
+                                };
+                                res.json(resData);
+                            }
+                        });
+                }
+            }
+        });
     }
 };
