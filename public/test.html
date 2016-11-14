@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>This is Test page</h1>
+    <pre id="res"></pre>
+    <script type="text/javascript">
+        var data1 = {
+                "code": 0, //返回码 0-成功
+                "msg": "success!", //返回信息
+                "data": { //数据对象
+                    "datas": [{ //问答数据数组
+                        "_id": "581b5009e0060f15261abe3a", //问答id
+                        "__v": 0,
+                        "ans": {
+                            "name": "zldl5778", //回复人姓名
+                            "txt": "有好多好多位", //回复内容
+                            "time": 1478184969145 //回复时间戳
+                        },
+                        "ask": {
+                            "name": "cm6847", //提问者姓名
+                            "txt": "你知道后面有几位数字吗——0.4821643019095063", //提问内容
+                            "time": 1478184326207 //提问时间戳
+                        }
+                    }, {
+                        "_id": "581b500fe0060f15261abe3b",
+                        "__v": 0,
+                        "ans": {
+                            "name": "zldl7296",
+                            "txt": "有好多好多位",
+                            "time": 1478184975722
+                        },
+                        "ask": {
+                            "name": "cm6738",
+                            "txt": "你知道后面有几位数字吗——0.5551610698457807",
+                            "time": 1478184326207
+                        }
+                    }],
+                    "page": 1, //当前页码
+                    "pageSize": 10, //每页多少条
+                    "total": 2, //总共多少条
+                    "totalPage": 1 //总共多少页
+                }
+            },
+            data2 = {
+                ask: {
+                    name: {
+                        type: 'String',
+                        required: 'true'
+                    },
+                    txt: {
+                        type: 'String',
+                        required: 'true'
+                    },
+                    time: {
+                        type: 'Number',
+                        default: 'Date.now()'
+                    }
+                },
+                ans: {
+                    name: 'String',
+                    txt: 'String',
+                    time: 'Number'
+                }
+            };
+        document.getElementById('res').innerHTML = JSON.stringify(data2, null, 4);
+    </script>
+</body>
+
+</html>

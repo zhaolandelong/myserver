@@ -4,67 +4,186 @@
         "desc": "测试接口：添加一条提问数据(/cmapis/testAddOne)",
         "url": "/cmapis/testAddOne",
         "type": "GET",
-        "data": "",
+        "data": "null",
         "res": ""
     }, {
         "desc": "测试接口：添加多条提问/回复数据(/cmapis/testAdd)",
         "url": "/cmapis/testAdd",
         "type": "GET",
-        "data": "",
+        "data": "null",
         "res": ""
     }, {
         "desc": "测试接口：删除全部数据(/cmapis/testRemove)",
         "url": "/cmapis/testRemove",
         "type": "GET",
-        "data": "",
+        "data": "null",
         "res": ""
     }, {
         "desc": "获取全部问答数据(/cmapis/getQues)",
         "url": "/cmapis/getQues",
         "type": "GET",
         "data": "?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10",
-        "res": "{\"code\":0,\"msg\":\"success!\",\"data\":{\"datas\":[{\"_id\":\"581b5009e0060f15261abe3a\",\"__v\":0,\"ans\":{\"name\":\"zldl5778\",\"txt\":\"有好多好多位\",\"time\":1478184969145},\"ask\":{\"name\":\"cm6847\",\"txt\":\"你知道后面有几位数字吗——0.4821643019095063\",\"time\":1478184326207}},{\"_id\":\"581b500fe0060f15261abe3b\",\"__v\":0,\"ans\":{\"name\":\"zldl7296\",\"txt\":\"有好多好多位\",\"time\":1478184975722},\"ask\":{\"name\":\"cm6738\",\"txt\":\"你知道后面有几位数字吗——0.5551610698457807\",\"time\":1478184326207}}],\"page\":1,\"pageSize\":10,\"total\":2,\"totalPage\":1}}"
+        "res": {
+            "code": 0,
+            "msg": "success!",
+            "data": {
+                "datas": [{
+                    "_id": "581b5009e0060f15261abe3a",
+                    "__v": 0,
+                    "ans": {
+                        "name": "zldl5778",
+                        "txt": "有好多好多位",
+                        "time": 1478184969145
+                    },
+                    "ask": {
+                        "name": "cm6847",
+                        "txt": "你知道后面有几位数字吗——0.4821643019095063",
+                        "time": 1478184326207
+                    }
+                }, {
+                    "_id": "581b500fe0060f15261abe3b",
+                    "__v": 0,
+                    "ans": {
+                        "name": "zldl7296",
+                        "txt": "有好多好多位",
+                        "time": 1478184975722
+                    },
+                    "ask": {
+                        "name": "cm6738",
+                        "txt": "你知道后面有几位数字吗——0.5551610698457807",
+                        "time": 1478184326207
+                    }
+                }],
+                "page": 1,
+                "pageSize": 10,
+                "total": 2,
+                "totalPage": 1
+            }
+        }
     }, {
         "desc": "获取单个问答数据(/cmapis/getOne)",
         "url": "/cmapis/getOne",
         "type": "GET",
         "data": "?id=1 //id——要获取的问题id",
-        "res": ""
+        "res": {
+            "code": 0,
+            "msg": "success!",
+            "data": {
+                "_id": "581b5009e0060f15261abe3a",
+                "__v": 0,
+                "ans": {
+                    "name": "zldl5778",
+                    "txt": "有好多好多位",
+                    "time": 1478184969145
+                },
+                "ask": {
+                    "name": "cm6847",
+                    "txt": "你知道后面有几位数字吗——0.4821643019095063",
+                    "time": 1478184326207
+                }
+            }
+        }
     }, {
         "desc": "提交问题(/cmapis/postQues)",
         "url": "/cmapis/postQues",
         "type": "POST",
-        "data": "",
-        "res": ""
+        "data": {
+            "name": "cm",
+            "txt": "还是事实上",
+            "time": 1478184969145
+        },
+        "res": {
+            "code": 0,
+            "msg": "success!"
+        }
     }, {
         "desc": "提交回答(/cmapis/postAns)",
         "url": "/cmapis/postAns",
         "type": "POST",
-        "data": "",
-        "res": ""
+        "data": {
+            "id": "581b5009e0060f15261abe3a",
+            "name": "cm",
+            "txt": "还是事实上",
+            "time": 1478184969145
+        },
+        "res": {
+            "code": 0,
+            "msg": "success!"
+        }
     }, {
         "desc": "删除提问(/cmapis/delQues)",
         "url": "/cmapis/delQues",
         "type": "POST",
-        "data": "{id:'58175967406aad177ce6a06b'}",
-        "res": ""
+        "data": {
+            "id": "581b5009e0060f15261abe3a"
+        },
+        "res": {
+            "code": 0,
+            "msg": "success!"
+        }
     }, {
         "desc": "添加(注册)用户(/cmapis/addUser)",
         "url": "/cmapis/addUser",
         "type": "POST",
-        "data": "",
-        "res": ""
+        "data": {
+            "name": "Str //用户名",
+            "sex": "Num //0-空 1-男 2-女",
+            "mobile": "Num //手机号",
+            "email": "Str //email",
+            "major": "Str //专业",
+            "degree": "Num //0-空 1-高中及以下 2-大专 3-本科 4-研究生 5-博士及以上 6-其他",
+            "school": "Str //毕业学校"
+        },
+        "res": {
+            "code": 0,
+            "msg": "success!"
+        }
     }, {
         "desc": "获取全部用户(/cmapis/getUsers)",
         "url": "/cmapis/getUsers",
-        "type": "POST",
-        "data": "",
-        "res": ""
+        "type": "GET",
+        "data": "?page=1&pageSize=10 //page——当前页码，默认1；pageSize——每页条数，默认10",
+        "res": {
+            "code": 0,
+            "msg": "success!",
+            "data": {
+                "datas": [{
+                    "_id": "5826ee70379cad4b344c54c5",
+                    "name": "name",
+                    "sex": 1,
+                    "mobile": 1231231231,
+                    "email": "zldldisk@3123.xomag",
+                    "major": "computer science",
+                    "degree": 1,
+                    "school": "bupt",
+                    "__v": 0
+                }, {
+                    "_id": "5826ee5c379cad4b344c54c4",
+                    "name": "name",
+                    "sex": 1,
+                    "mobile": 1231231231,
+                    "email": "zldldisk@3123.xomag",
+                    "major": "computer science",
+                    "degree": 1,
+                    "school": "bupt",
+                    "__v": 0
+                }],
+                "page": 1,
+                "pageSize": 10,
+                "total": 2,
+                "totalPage": 1
+            }
+        }
     }, {
         "desc": "删除用户(/cmapis/delUser)",
         "url": "/cmapis/delUser",
         "type": "POST",
-        "data": "{id:'58175967406aad177ce6a06b'}",
-        "res": ""
+        "data": {
+            "id": "58175967406aad177ce6a06b"
+        },
+        "res": {
+            "code": 0,
+            "msg": "success!"
+        }
     }]
 }

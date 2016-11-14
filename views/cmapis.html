@@ -7,7 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>cmapis</title>
     <style>
-        h5{cursor: pointer;}
+        h5 {
+            cursor: pointer;
+        }
+
+        label {
+            color: #f60;
+        }
+
+        .apiwrap {
+            overflow-x: scroll;
+            padding: 0 15px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+        }
+
+        .apidesc {
+            color: #080;
+        }
     </style>
 </head>
 
@@ -17,11 +34,11 @@
         {{each apis as api i}}
         <li>
             <h5><span>▼</span>{{api.desc}}</h5>
-            <div style="display:none;">
-                <pre>url : {{api.url}}</pre>
-                <pre>type : {{api.type}}</pre>
-                <pre>data : {{api.data}}</pre>
-                <pre>res : {{api.res}}</pre>
+            <div class="apiwrap" style="display:none;">
+                <pre><label>url : </label><span class="apidesc">{{api.url}}</span></pre>
+                <pre><label>type : </label><span class="apidesc">{{api.type}}</span></pre>
+                <pre><label>data : </label><span class="apidesc">{{api.data | api}}</span></pre>
+                <pre><label>res : </label><span class="apidesc">{{api.res | api}}</span></pre>
             </div>
         </li>
         {{/each}}
