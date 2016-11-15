@@ -163,7 +163,7 @@ module.exports = {
             } else {
                 res.end('Ques all removed!')
             }
-        })
+        });
     },
     addUser: (req, res, next) => {
         let query = req.body;

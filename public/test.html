@@ -8,69 +8,51 @@
     <title>Document</title>
 </head>
 
-<body>
-    <h1>This is Test page</h1>
-    <pre id="res"></pre>
+<body id="body">
+    <h1>This is a test Page (FE rend)</h1>
+    <div id="app">
+        <ol>
+            <li v-for="tmp in datas"> 时间戳：{{tmp.time}} , 随机数：{{tmp.rand}} </li>
+        </ol>
+    </div>
+    <script src="./lib/vue.min.js" charset="utf-8"></script>
     <script type="text/javascript">
-        var data1 = {
-                "code": 0, //返回码 0-成功
-                "msg": "success!", //返回信息
-                "data": { //数据对象
-                    "datas": [{ //问答数据数组
-                        "_id": "581b5009e0060f15261abe3a", //问答id
-                        "__v": 0,
-                        "ans": {
-                            "name": "zldl5778", //回复人姓名
-                            "txt": "有好多好多位", //回复内容
-                            "time": 1478184969145 //回复时间戳
-                        },
-                        "ask": {
-                            "name": "cm6847", //提问者姓名
-                            "txt": "你知道后面有几位数字吗——0.4821643019095063", //提问内容
-                            "time": 1478184326207 //提问时间戳
-                        }
-                    }, {
-                        "_id": "581b500fe0060f15261abe3b",
-                        "__v": 0,
-                        "ans": {
-                            "name": "zldl7296",
-                            "txt": "有好多好多位",
-                            "time": 1478184975722
-                        },
-                        "ask": {
-                            "name": "cm6738",
-                            "txt": "你知道后面有几位数字吗——0.5551610698457807",
-                            "time": 1478184326207
-                        }
-                    }],
-                    "page": 1, //当前页码
-                    "pageSize": 10, //每页多少条
-                    "total": 2, //总共多少条
-                    "totalPage": 1 //总共多少页
-                }
-            },
-            data2 = {
-                ask: {
-                    name: {
-                        type: 'String',
-                        required: 'true'
-                    },
-                    txt: {
-                        type: 'String',
-                        required: 'true'
-                    },
-                    time: {
-                        type: 'Number',
-                        default: 'Date.now()'
+        new Vue({
+            el: '#app',
+            beforeCreate: function() {
+                var vm = this;
+                var xhr;
+                //生成xhr对象
+                try {
+                    xhr = new XMLHttpRequest(); //直接创建
+                } catch (e) {
+                    try {
+                        xhr = new ActiveXObject("Msxml2.XMLHTTP"); //IE高版本创建XMLHTTP
+                    } catch (e) {
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP"); //IE低版本创建XMLHTTP
                     }
-                },
-                ans: {
-                    name: 'String',
-                    txt: 'String',
-                    time: 'Number'
                 }
-            };
-        document.getElementById('res').innerHTML = JSON.stringify(data2, null, 4);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        var res = JSON.parse(xhr.responseText);
+                        console.log(res);
+                        // JSON.parse(xhr.responseText)
+                        var status = xhr.status;
+                        vm.datas = res.data;
+                        // if (status < 200 || (status >= 300 && status != 304)) {
+                        //
+                        // } else {
+                        //     console.log('err : ', res)
+                        // }
+                    }
+                }
+                xhr.open('GET', '/test/getData', true);
+                xhr.send(null);
+            },
+            data: {
+                datas:null
+            }
+        });
     </script>
 </body>
 

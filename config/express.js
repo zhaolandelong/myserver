@@ -17,6 +17,7 @@ module.exports = () => {
     app.use(bodyParser.json());
     app.use(express.static('./public'));
 
+    app.use('/test', require('../app/routes/test.server.routes.js'));
     app.use('/cmapis', require('../app/routes/cm.server.routes.js'));
     app.use('/', require('../app/routes/views.server.routes.js'));
 
