@@ -17,9 +17,20 @@
     </div>
     <script src="./lib/vue.min.js" charset="utf-8"></script>
     <script type="text/javascript">
+        var objTime = {
+            beforeCreate: null,
+            created: null,
+            beforeMount: null,
+            mounted: null,
+            beforeUpdate: null,
+            updated: null,
+            beforeDestory: null,
+            destoryed: null
+        }
         new Vue({
             el: '#app',
             beforeCreate: function() {
+                console.log('beforeCreate:', objTime.beforeCreate = Date.now());
                 var vm = this;
                 var xhr;
                 //生成xhr对象
@@ -35,7 +46,6 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4) {
                         var res = JSON.parse(xhr.responseText);
-                        console.log(res);
                         // JSON.parse(xhr.responseText)
                         var status = xhr.status;
                         vm.datas = res.data;
@@ -49,8 +59,30 @@
                 xhr.open('GET', '/test/getData', true);
                 xhr.send(null);
             },
+            created: function() {
+                console.log('created:', objTime.created = Date.now(), '; time:', objTime.created - objTime.beforeCreate);
+            },
+            beforeMount: function() {
+                console.log('beforeMount:', objTime.beforeMount = Date.now(), '; time:', objTime.beforeMount - objTime.created);
+            },
+            mounted: function() {
+                console.log('mounted:', objTime.mounted = Date.now(), '; time:', objTime.mounted - objTime.beforeMount);
+            },
+            beforeUpdate: function() {
+                console.log('beforeUpdate:', objTime.beforeUpdate = Date.now(), '; time:', objTime.beforeUpdate - objTime.mounted);
+            },
+            updated: function() {
+                console.log('updated:', objTime.updated = Date.now(), '; time:', objTime.updated - objTime.beforeUpdate);
+                console.log('total:', objTime.updated - objTime.beforeCreate);
+            },
+            beforeDestory: function() {
+                console.log('beforeDestory:', objTime.beforeDestory = Date.now());
+            },
+            destoryed: function() {
+                console.log('destoryed:', objTime.destoryed = Date.now(), '; time:', objTime.destoryed - objTime.beforeDestory);
+            },
             data: {
-                datas:null
+                datas: null
             }
         });
     </script>
