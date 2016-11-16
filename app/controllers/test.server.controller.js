@@ -26,7 +26,7 @@ module.exports = {
         res.end('add ' + count + ' data');
     },
     getData: (req, res, next) => {
-        Test.find()
+        Test.find({},'-_id -__v')
             .exec((err, docs) => {
                 if (err) {
                     res.end(err);
