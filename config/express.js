@@ -15,6 +15,17 @@ module.exports = () => {
         extended: true
     }));
     app.use(bodyParser.json());
+    app.all('*', function(req, res, next) {
+        res.header("Cache-Control", "max-age=315360000");
+        res.header("Expires", "Tue, 17 Nov 2026 12:29:02 GMT");
+        // res.header("Last-Modified", "max-age=315360000");
+
+        // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        // res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+        // res.header("X-Powered-By", ' 3.2.1')
+        // res.header("Content-Type", "application/json;charset=utf-8");
+        next();
+    });
     app.use(express.static('./public'));
 
     app.use('/test', require('../app/routes/test.server.routes.js'));
