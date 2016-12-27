@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const template = require('./template.js');
+const compression = require('compression');
 
 module.exports = () => {
     const app = express();
@@ -10,7 +11,7 @@ module.exports = () => {
     app.engine('.html', template.__express);
     // app.set('views','./views'); //views paths
     app.set('view engine', 'html'); // set engine
-
+    app.use(compression());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
