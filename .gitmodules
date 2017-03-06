@@ -4,3 +4,6 @@
 [submodule "public/zldl"]
 	path = public/zldl
 	url = https://github.com/zhaolandelong/my-js.git
+[submodule "public/resume"]
+	path = public/resume
+	url = https://github.com/chenjycm/resume.git
