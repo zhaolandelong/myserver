@@ -9,81 +9,32 @@
 </head>
 
 <body id="body">
-    <h1>This is a test Page (FE rend)</h1>
-    <div id="app">
-        <ol>
-            <li v-for="tmp in datas"> 时间戳：{{tmp.time}} , 随机数：{{tmp.rand}} </li>
-        </ol>
-    </div>
-    <script src="./lib/vue.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        var objTime = {
-            beforeCreate: null,
-            created: null,
-            beforeMount: null,
-            mounted: null,
-            beforeUpdate: null,
-            updated: null,
-            beforeDestory: null,
-            destoryed: null
-        }
-        new Vue({
-            el: '#app',
-            beforeCreate: function() {
-                console.log('beforeCreate:', objTime.beforeCreate = Date.now());
-                var vm = this;
-                var xhr;
-                //生成xhr对象
-                try {
-                    xhr = new XMLHttpRequest(); //直接创建
-                } catch (e) {
-                    try {
-                        xhr = new ActiveXObject("Msxml2.XMLHTTP"); //IE高版本创建XMLHTTP
-                    } catch (e) {
-                        xhr = new ActiveXObject("Microsoft.XMLHTTP"); //IE低版本创建XMLHTTP
-                    }
+    <h1>test DataForm</h1>
+    <form action="">
+        <label for="name">name : </label><input type="text" id="name" name="name">
+        <label for="age">age : </label><input type="text" id="age" name="age">
+    </form>
+    <button id="btn">post form</button>
+    <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
+    <script>
+        var data = {
+            name: 'zldl',
+            age: 28
+        };
+        $('#btn').click(function() {
+            $.ajax({
+                url: '/test/postForm',
+                // dataType: 'json',
+                // processData: false,
+                data: data,
+                type: 'POST',
+                success: function(res) {
+                    console.log(res);
+                },
+                error: function(err) {
+                    console.log(err);
                 }
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4) {
-                        var res = JSON.parse(xhr.responseText);
-                        // JSON.parse(xhr.responseText)
-                        var status = xhr.status;
-                        vm.datas = res.data;
-                        // if (status < 200 || (status >= 300 && status != 304)) {
-                        //
-                        // } else {
-                        //     console.log('err : ', res)
-                        // }
-                    }
-                }
-                xhr.open('GET', '/test/getData', true);
-                xhr.send(null);
-            },
-            created: function() {
-                console.log('created:', objTime.created = Date.now(), '; time:', objTime.created - objTime.beforeCreate);
-            },
-            beforeMount: function() {
-                console.log('beforeMount:', objTime.beforeMount = Date.now(), '; time:', objTime.beforeMount - objTime.created);
-            },
-            mounted: function() {
-                console.log('mounted:', objTime.mounted = Date.now(), '; time:', objTime.mounted - objTime.beforeMount);
-            },
-            beforeUpdate: function() {
-                console.log('beforeUpdate:', objTime.beforeUpdate = Date.now(), '; time:', objTime.beforeUpdate - objTime.mounted);
-            },
-            updated: function() {
-                console.log('updated:', objTime.updated = Date.now(), '; time:', objTime.updated - objTime.beforeUpdate);
-                console.log('total:', objTime.updated - objTime.beforeCreate);
-            },
-            beforeDestory: function() {
-                console.log('beforeDestory:', objTime.beforeDestory = Date.now());
-            },
-            destoryed: function() {
-                console.log('destoryed:', objTime.destoryed = Date.now(), '; time:', objTime.destoryed - objTime.beforeDestory);
-            },
-            data: {
-                datas: null
-            }
+            });
         });
     </script>
 </body>
