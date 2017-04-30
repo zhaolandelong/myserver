@@ -10,22 +10,25 @@
 
 <body id="body">
     <h1>test DataForm</h1>
-    <form action="">
-        <label for="name">name : </label><input type="text" id="name" name="name">
-        <label for="age">age : </label><input type="text" id="age" name="age">
-    </form>
-    <button id="btn">post form</button>
+    <div class="example-4">
+        <form id="form" name="input" action="/test/postForm" method="post">
+            <p>First name: <input type="text" name="fname" /></p>
+            <p>Last name: <input type="text" name="lname" /></p>
+            <p>File name: <input type="file" name="file" /></p>
+            <input type="submit" value="submit by form" />
+        </form>
+        <button id="btn">submit by ajax</button>
+    </div>
     <script src="./lib/jquery-1.11.3.min.js" charset="utf-8"></script>
     <script>
-        var data = {
-            name: 'zldl',
-            age: 28
-        };
         $('#btn').click(function() {
+            var data = new FormData($('#form')[0]);
+            console.log(data)
             $.ajax({
                 url: '/test/postForm',
                 // dataType: 'json',
-                // processData: false,
+                processData: false,
+                contentType: false,
                 data: data,
                 type: 'POST',
                 success: function(res) {
