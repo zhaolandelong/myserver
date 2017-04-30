@@ -39,7 +39,7 @@ module.exports = {
     },
     postForm(req, res, next) {
         const query = req.body;
-        // console.log(req);
+        console.log(query);
         res.json({
             headers: req.headers,
             data: req.body
