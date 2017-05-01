@@ -1,9 +1,10 @@
 'use strict';
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); //post body
 const path = require('path');
 const template = require('./template.js');
-const compression = require('compression');
+const compression = require('compression'); //gzip
+const busboy = require('connect-busboy'); //file upload
 
 module.exports = () => {
     const app = express();
@@ -11,6 +12,7 @@ module.exports = () => {
     app.engine('.html', template.__express);
     // app.set('views','./views'); //views paths
     app.set('view engine', 'html'); // set engine
+    app.use(busboy());
     app.use(compression());
     app.use(bodyParser.urlencoded({
         extended: true
