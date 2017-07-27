@@ -13,3 +13,6 @@
 [submodule "public/uploadfiles"]
 	path = public/uploadfiles
 	url = https://github.com/chenjycm/uploadfiles
+[submodule "public/my-music"]
+	path = public/my-music
+	url = https://github.com/chenjycm/my-music.git
