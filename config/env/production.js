@@ -1,4 +1,4 @@
 module.exports = {
     mongodb: "mongodb://localhost/cm",
-    port: 80
+    port: 8000
 };

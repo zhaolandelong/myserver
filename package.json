@@ -9,7 +9,7 @@
     "pro": "cross-env NODE_ENV=production node bin/www",
     "dev": "cross-env NODE_ENV=development node bin/www",
     "mongod": "cross-env NODE_ENV=production mongod --dbpath ~/data/db",
-    "forever": "cross-env NODE_ENV=production forever bin/www"
+    "forever": "cross-env NODE_ENV=production forever start bin/www"
   },
   "author": "zldl",
   "license": "ISC",
